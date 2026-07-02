@@ -1,0 +1,19 @@
+# أسرار وإعدادات محلية
+.env
+
+# ملفات حالة محلية (لا تُرفع - على الاستضافة تُخزَّن في Volume دائم)
+state/
+*.tmp
+
+# بايثون
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# نظام التشغيل والمحررات
+.DS_Store
+.vscode/
+.idea/
