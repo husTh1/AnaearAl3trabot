@@ -134,8 +134,8 @@ git push -u origin main
 | `ADMIN_ID` | معرفك الرقمي |
 | `OFFICIAL_CHANNEL_USERNAME` | `forca91` |
 | `STATE_DIR` | `/data` (انظر الخطوة التالية) |
-| `PRAYER_CITY` | `Baghdad` (أو اتركه فارغًا لاستخدام الافتراضي) |
-| `PRAYER_COUNTRY` | `Iraq` |
+| `PRAYER_LATITUDE` | `33.3152` (اتركه فارغًا لاستخدام الافتراضي - مركز بغداد بدقة عالية) |
+| `PRAYER_LONGITUDE` | `44.3661` (اتركه فارغًا لاستخدام الافتراضي) |
 
 ### د) ⚠️ خطوة حرجة: إنشاء Volume دائم
 

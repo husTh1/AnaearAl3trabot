@@ -48,9 +48,11 @@ OFFICIAL_CHANNEL_USERNAME = _get_required("OFFICIAL_CHANNEL_USERNAME").lstrip("@
 # مجلد تخزين ملفات الحالة (يجب أن يشير إلى Volume دائم على Railway)
 STATE_DIR = _get_optional("STATE_DIR", default="./state")
 
-# مدينة/دولة حساب أوقات الصلاة (منهج الشيعة الاثنا عشرية - Aladhan method=0)
-PRAYER_CITY = _get_optional("PRAYER_CITY", default="Baghdad")
-PRAYER_COUNTRY = _get_optional("PRAYER_COUNTRY", default="Iraq")
+# إحداثيات دقيقة لحساب أوقات الصلاة (مركز بغداد افتراضيًا) - منهج الشيعة الاثنا عشرية Aladhan method=0
+# استخدام إحداثيات مباشرة بدل اسم مدينة نصي يزيل خطوة "ترجمة الاسم لإحداثيات" الوسيطة من حساب Aladhan،
+# فيصبح الحساب مباشرًا وأدق.
+PRAYER_LATITUDE = float(_get_optional("PRAYER_LATITUDE", default="33.3152"))
+PRAYER_LONGITUDE = float(_get_optional("PRAYER_LONGITUDE", default="44.3661"))
 ALADHAN_METHOD = _get_optional("ALADHAN_METHOD", default="0")  # 0 = Shia Ithna-Ashari
 
 # اسم قناة النشر الافتراضية الثابتة (اختياري - إن أردت قناة واحدة فقط بدل تعدد القنوات)

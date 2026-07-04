@@ -13,11 +13,11 @@ from zoneinfo import ZoneInfo
 import httpx
 from telegram.ext import ContextTypes, JobQueue
 
-from bot.config import PRAYER_CITY, PRAYER_COUNTRY, ALADHAN_METHOD, logger
+from bot.config import PRAYER_LATITUDE, PRAYER_LONGITUDE, ALADHAN_METHOD, logger
 from bot.subscription import is_user_subscribed
 from bot.message_formatter import format_bundle
 
-ALADHAN_URL = "https://api.aladhan.com/v1/timingsByCity"
+ALADHAN_URL = "https://api.aladhan.com/v1/timings"
 
 PRAYER_KEYS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"]
 
@@ -34,17 +34,21 @@ FALLBACK_TIMEZONE = "Asia/Baghdad"
 
 async def fetch_prayer_times() -> tuple[dict, str]:
     """
-    يجلب أوقات الصلاة الخمسة لليوم الحالي من Aladhan API.
+    يجلب أوقات الصلاة الخمسة لليوم الحالي من Aladhan API باستخدام إحداثيات دقيقة
+    (بدل اسم مدينة نصي)، مما يزيل خطوة "ترجمة الاسم لإحداثيات" الوسيطة ويجعل
+    الحساب الفلكي مباشرًا وأدق.
     يرجع (dict بالأوقات، اسم المنطقة الزمنية).
     """
+    today_str = datetime.date.today().strftime("%d-%m-%Y")
+    url = f"{ALADHAN_URL}/{today_str}"
     params = {
-        "city": PRAYER_CITY,
-        "country": PRAYER_COUNTRY,
+        "latitude": PRAYER_LATITUDE,
+        "longitude": PRAYER_LONGITUDE,
         "method": ALADHAN_METHOD,
     }
     try:
         async with httpx.AsyncClient(timeout=15) as client:
-            response = await client.get(ALADHAN_URL, params=params)
+            response = await client.get(url, params=params)
             response.raise_for_status()
             payload = response.json()
 
